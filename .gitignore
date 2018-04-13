@@ -16,21 +16,9 @@
 /tmp/*
 !/log/.keep
 !/tmp/.keep
-/config/secrets.yml
-/config/database.yml
-/config/application.yml
 
 # Ignore Byebug command history file.
 .byebug_history
 
 # Ignore mac ds_store
 .DS_Store
-
-# Ignore uploads picture
-public/uploads/*
-lib/certificate/*
-
-
-config/settings.local.yml
-config/settings/*.local.yml
-config/environments/*.local.yml

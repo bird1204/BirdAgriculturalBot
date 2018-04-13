@@ -1,6 +1,10 @@
 require 'line/bot'
 class WebhooksController < ApplicationController
   protect_from_forgery with: :null_session
+
+  def index
+    render plain: 'THIS IS FOR bird-line-argicultural-bot', status: 200
+  end
   def create
     # Line Bot API 物件初始化
     client = Line::Bot::Client.new { |config|
