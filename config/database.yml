@@ -22,5 +22,9 @@ test:
 
 production:
   <<: *default
-  adapter: mysql2
-  database: db/production.sqlite3
+  adapter: postgresql
+  encoding: unicode
+  database: argricultural-bot_production
+  username: argricultural-bot
+  password: <%= ENV['MYAPP_DATABASE_PASSWORD'] %>
+
