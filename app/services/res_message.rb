@@ -1,6 +1,14 @@
 module ResMessage
   module_function
 
+  ALIAS = {
+    '高麗菜' => '甘藍',
+    'A菜' => '萵苣',
+    '大陸妹' => '萵苣',
+    '地瓜' => '甘藷',
+    '地瓜葉' => '甘藷葉'
+  }
+
   def help
     "[INFO]\n搜尋菜價: bird [地點] [菜名]\n找台北的高麗菜，請輸入bird 台北 高麗菜\n找幫助: bird help\n找作者: bird whoami"
   end
@@ -14,7 +22,7 @@ module ResMessage
   end
 
   def find_by(location, product)
-    # http://data.coa.gov.tw/Service/OpenData/FromM/FarmTransData.aspx?Crop=白菜&Market=台北
+    product = ALIAS[product] || product
     url = URI.encode("https://data.coa.gov.tw/Service/OpenData/FromM/FarmTransData.aspx?Crop=#{product}&Market=#{location}")
     res = Net::HTTP.get_response(URI.parse(url))
 
