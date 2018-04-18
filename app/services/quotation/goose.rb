@@ -1,4 +1,4 @@
-module Quotation::Duck
+module Quotation::Goose
   module_function
 
   def find_all
@@ -7,7 +7,7 @@ module Quotation::Duck
     url = URI.encode("http://data.coa.gov.tw/Service/OpenData/FromM/PoultryTransGooseDuckData.aspx?StartDate=#{five_days_ago}")
     res = Net::HTTP.get_response(URI.parse(url))
     if JSON.parse(res.body).present?
-      return_messages += JSON.parse(res.body)[0]['肉鵝(白羅曼)']
+      return_messages += ["肉鵝(白羅曼)：#{JSON.parse(res.body)[0]['肉鵝(白羅曼)']}"]
     end
 
     return return_messages.join("\n") if return_messages.size > 1
