@@ -6,7 +6,8 @@ module ResMessage
     'A菜' => '萵苣',
     '大陸妹' => '萵苣',
     '地瓜' => '甘藷',
-    '地瓜葉' => '甘藷葉'
+    '地瓜葉' => '甘藷葉',
+    '青江菜' => '青江白菜'
   }
 
   def help
@@ -22,7 +23,7 @@ module ResMessage
   end
 
   def find_by(location, product)
-    product = ALIAS[product] || product
+    product = ALIAS[product] || product.remove('菜')
     url = URI.encode("https://data.coa.gov.tw/Service/OpenData/FromM/FarmTransData.aspx?Crop=#{product}&Market=#{location}")
     res = Net::HTTP.get_response(URI.parse(url))
 
