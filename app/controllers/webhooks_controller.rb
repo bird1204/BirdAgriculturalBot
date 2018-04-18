@@ -17,7 +17,6 @@ class WebhooksController < ApplicationController
     response_message = service.response!
 
     client.reply_message(reply_token, response_message) if response_message.present?
-
     head :ok
   end
 end

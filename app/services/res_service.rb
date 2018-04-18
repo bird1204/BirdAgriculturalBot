@@ -7,6 +7,8 @@ class ResService
 
     @message_type = params['events'][0]["message"]["type"].downcase
     @message_text = params['events'][0]["message"]["text"].downcase
+    @source_type = params['events'][0]['source']['type'].downcase
+    @source_group_id = params['events'][0]['source']['groupId']
   end
 
   def response!
@@ -20,6 +22,14 @@ class ResService
   end
 
   private
+
+  def user?
+    @source_type == 'user'
+  end
+
+  def king_group?
+    @source_type == 'group' and @source_group_id == ENV['king_group_id']
+  end
 
   def trigger_response?
     @message_type == "text" && @message_text.start_with?("bird")
@@ -42,7 +52,11 @@ class ResService
       when 'whoami'
         return ResMessage.whoami
       else
-        return ResMessage.error
+        if king_group? or user?
+          return Stuff::Trash.blahblahblah!
+        else
+          return ResMessage.error
+        end
       end
     end
 
