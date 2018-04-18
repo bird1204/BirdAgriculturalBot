@@ -23,11 +23,10 @@ module ResMessage
   end
 
   def find_by(location, product)
-
     return Quotation::Chicken.find_all if product.match('雞')
     return Quotation::Goose.find_all if product.match('鵝')
     return Quotation::Duck.find_all if product.match('鴨')
-    return Quotation::Agriculture.find_by(location) if product.match('豬')
+    return Quotation::Pig.find_by(location) if product.match('豬')
     # if product.match('牛')
     # if product.match('魚')
     return Quotation::Agriculture.find_by(location, product)
