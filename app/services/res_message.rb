@@ -23,16 +23,13 @@ module ResMessage
   end
 
   def find_by(location, product)
-    product = ALIAS[product] || product.remove('菜')
-    url = URI.encode("https://data.coa.gov.tw/Service/OpenData/FromM/FarmTransData.aspx?Crop=#{product}&Market=#{location}")
-    res = Net::HTTP.get_response(URI.parse(url))
 
-    if JSON.parse(res.body).present?
-      return "今日(#{Time.zone.now.strftime('%F')})報價：\n" << JSON.parse(res.body).map do |product|
-        "#{product['作物名稱']}: 每公斤#{product['平均價']}元"
-      end.join("\n")
-    end
-
-    return "沒有找到今天的資料"
+    return Quotation::Chicken.find_all if product.match('雞')
+    return Quotation::Goose.find_all if product.match('鵝')
+    return Quotation::Duck.find_all if product.match('鴨')
+    return Quotation::Agriculture.find_by(location) if product.match('豬')
+    # if product.match('牛')
+    # if product.match('魚')
+    return Quotation::Agriculture.find_by(location, product)
   end
 end
